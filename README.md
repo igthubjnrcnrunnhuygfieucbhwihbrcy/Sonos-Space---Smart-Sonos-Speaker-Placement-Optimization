@@ -47,13 +47,19 @@
 |-------------|---------------|-------------------|
 | ![Main](https://via.placeholder.com/300x600/4A90E2/FFFFFF?text=Main) | ![Setup](https://via.placeholder.com/300x600/4A90E2/FFFFFF?text=Setup) | ![Room](https://via.placeholder.com/300x600/4A90E2/FFFFFF?text=Room) |
 
+## 🏷 Releases
+
+**Latest Version: v1.0.0** (Tagged in repository)
+
+All releases are available on the [Releases page](https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonos-Space---Smart-Sonos-Speaker-Placement-Optimization/releases).
+
 ## Installation
 
 ### From GitHub
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonosequencer.new.android.beta.git
+git clone https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonos-Space---Smart-Sonos-Speaker-Placement-Optimization.git
 ```
 
 2. Open the project in Android Studio
@@ -62,7 +68,7 @@ git clone https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonosequencer.new
 
 ### APK Download
 
-You can download the latest APK from the [Releases](https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonosequencer.new.android.beta/releases) page.
+You can download the latest APK from the [Releases](https://github.com/igthubjnrcnrunnhuygfieucbhwihbrcy/Sonos-Space---Smart-Sonos-Speaker-Placement-Optimization/releases) page.
 
 ## Usage
 
