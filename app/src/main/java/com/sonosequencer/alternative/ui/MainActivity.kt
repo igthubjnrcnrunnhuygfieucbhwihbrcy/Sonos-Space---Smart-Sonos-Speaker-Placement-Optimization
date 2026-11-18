@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_optimize -> {
-                    // Open optimization screen
+                    startActivity(Intent(this, OptimizationActivity::class.java))
                     true
                 }
                 R.id.nav_settings -> {
@@ -123,7 +123,10 @@ class MainActivity : AppCompatActivity() {
     
     private fun optimizeSpeaker(speaker: Speaker) {
         // Open optimization screen for this speaker
-        Snackbar.make(binding.root, "Optimizing ${speaker.name}", Snackbar.LENGTH_SHORT).show()
+        val intent = Intent(this, OptimizationActivity::class.java).apply {
+            putExtra("SPEAKER_ID", speaker.id)
+        }
+        startActivity(intent)
     }
     
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

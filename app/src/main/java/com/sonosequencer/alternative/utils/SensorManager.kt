@@ -5,13 +5,26 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager as AndroidSensorManager
+import android.util.Log
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlin.math.acos
 import kotlin.math.sqrt
 
+/**
+ * Manages device sensors for angle measurement.
+ * 
+ * This class uses the accelerometer and magnetometer to calculate
+ * the device's orientation and tilt angle when placed on a speaker.
+ */
 class SensorManager(private val context: Context) {
+    
+    companion object {
+        private const val TAG = "SensorManager"
+        private const val SENSOR_DELAY = AndroidSensorManager.SENSOR_DELAY_NORMAL
+        private const val MIN_ANGLE_CHANGE = 0.5f // Minimum angle change to trigger update (degrees)
+    }
     
     private val sensorManager: AndroidSensorManager by lazy {
         context.getSystemService(Context.SENSOR_SERVICE) as AndroidSensorManager
@@ -25,50 +38,107 @@ class SensorManager(private val context: Context) {
     
     private var accelerometerValues = FloatArray(3)
     private var magnetometerValues = FloatArray(3)
+    private var lastReportedAngle: Float = 0f
+    
+    private var isMeasuring = false
     
     private val sensorListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {
             when (event.sensor.type) {
                 Sensor.TYPE_ACCELEROMETER -> {
                     System.arraycopy(event.values, 0, accelerometerValues, 0, event.values.size)
-                    calculateAngle()
+                    calculateAndReportAngle()
                 }
                 Sensor.TYPE_MAGNETIC_FIELD -> {
                     System.arraycopy(event.values, 0, magnetometerValues, 0, event.values.size)
-                    calculateAngle()
+                    calculateAndReportAngle()
                 }
             }
         }
         
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-            // Not used
+            Log.d(TAG, "Sensor accuracy changed: ${sensor.name} -> $accuracy")
         }
     }
     
     init {
+        // Initialize sensor references
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        
+        Log.d(TAG, "SensorManager initialized")
+        Log.d(TAG, "Accelerometer available: ${accelerometer != null}")
+        Log.d(TAG, "Magnetometer available: ${magnetometer != null}")
     }
     
-    fun startAngleMeasurement() {
-        accelerometer?.let { accel ->
-            sensorManager.registerListener(sensorListener, accel, AndroidSensorManager.SENSOR_DELAY_NORMAL)
+    /**
+     * Starts angle measurement using device sensors.
+     * 
+     * @return true if sensors are available and measurement started, false otherwise
+     */
+    fun startAngleMeasurement(): Boolean {
+        if (isMeasuring) {
+            Log.w(TAG, "Angle measurement already in progress")
+            return true
         }
-        magnetometer?.let { mag ->
-            sensorManager.registerListener(sensorListener, mag, AndroidSensorManager.SENSOR_DELAY_NORMAL)
+        
+        if (!hasRequiredSensors()) {
+            Log.e(TAG, "Required sensors not available")
+            return false
+        }
+        
+        try {
+            accelerometer?.let { accel ->
+                sensorManager.registerListener(sensorListener, accel, SENSOR_DELAY)
+                Log.d(TAG, "Registered accelerometer listener")
+            }
+            magnetometer?.let { mag ->
+                sensorManager.registerListener(sensorListener, mag, SENSOR_DELAY)
+                Log.d(TAG, "Registered magnetometer listener")
+            }
+            
+            isMeasuring = true
+            lastReportedAngle = 0f
+            Log.d(TAG, "Angle measurement started")
+            
+            return true
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting angle measurement", e)
+            return false
         }
     }
     
+    /**
+     * Stops angle measurement.
+     */
     fun stopAngleMeasurement() {
-        sensorManager.unregisterListener(sensorListener)
+        if (!isMeasuring) {
+            Log.d(TAG, "Angle measurement not in progress")
+            return
+        }
+        
+        try {
+            sensorManager.unregisterListener(sensorListener)
+            isMeasuring = false
+            Log.d(TAG, "Angle measurement stopped")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping angle measurement", e)
+        }
     }
     
-    private fun calculateAngle() {
-        if (accelerometerValues != null && magnetometerValues != null) {
+    /**
+     * Calculates the angle based on sensor values and reports it if changed significantly.
+     */
+    private fun calculateAndReportAngle() {
+        if (accelerometerValues.isEmpty() || magnetometerValues.isEmpty()) {
+            return
+        }
+        
+        try {
             val rotationMatrix = FloatArray(9)
             val inclinationMatrix = FloatArray(9)
             
-            // Calculate rotation matrix
+            // Calculate rotation matrix using sensor fusion
             if (AndroidSensorManager.getRotationMatrix(
                     rotationMatrix,
                     inclinationMatrix,
@@ -79,37 +149,46 @@ class SensorManager(private val context: Context) {
                 val orientationValues = FloatArray(3)
                 AndroidSensorManager.getOrientation(rotationMatrix, orientationValues)
                 
-                // orientationValues[0] = azimuth (rotation around Z axis)
-                // orientationValues[1] = pitch (rotation around X axis)
-                // orientationValues[2] = roll (rotation around Y axis)
+                // orientationValues[0] = azimuth (rotation around Z axis) in radians
+                // orientationValues[1] = pitch (rotation around X axis) in radians
+                // orientationValues[2] = roll (rotation around Y axis) in radians
                 
-                // For speaker placement, we're interested in the azimuth (compass direction)
-                // and pitch (tilt forward/backward)
-                
-                // Calculate the angle between phone front and speaker front
-                // When phone is placed on speaker with fronts aligned, pitch should be ~0
-                // and azimuth gives the rotation
-                
+                // Convert to degrees
                 val azimuth = Math.toDegrees(orientationValues[0].toDouble()).toFloat()
                 val pitch = Math.toDegrees(orientationValues[1].toDouble()).toFloat()
                 val roll = Math.toDegrees(orientationValues[2].toDouble()).toFloat()
                 
-                // For simplicity, we'll use the pitch as the main angle
+                // For speaker placement, we're primarily interested in the pitch
                 // (tilt forward/backward from horizontal)
-                // In practice, you'd want to calibrate this based on how the phone is placed
+                // When phone is placed flat on speaker, pitch should be ~0
                 
-                // Calculate the angle between phone and speaker
-                // This is a simplified calculation
-                val angle = calculatePhoneSpeakerAngle(accelerometerValues)
+                // Calculate the magnitude of tilt
+                val tiltAngle = calculateTiltAngle(accelerometerValues)
                 
-                _angleChannel.trySend(angle)
+                // Use pitch as the primary angle for speaker placement
+                val currentAngle = Math.abs(pitch)
+                
+                // Only report if angle changed significantly
+                if (Math.abs(currentAngle - lastReportedAngle) >= MIN_ANGLE_CHANGE || 
+                    lastReportedAngle == 0f) {
+                    lastReportedAngle = currentAngle
+                    _angleChannel.trySend(currentAngle)
+                    Log.d(TAG, "Angle updated: ${currentAngle}° (pitch: ${pitch}°, roll: ${roll}°, azimuth: ${azimuth}°)")
+                }
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error calculating angle", e)
         }
     }
     
-    private fun calculatePhoneSpeakerAngle(accelValues: FloatArray): Float {
-        // Calculate the angle based on accelerometer values
-        // This assumes the phone is placed flat on the speaker
+    /**
+     * Calculates the tilt angle from horizontal using accelerometer values.
+     * 
+     * @param accelValues Accelerometer values (x, y, z)
+     * @return Tilt angle in degrees
+     */
+    private fun calculateTiltAngle(accelValues: FloatArray): Float {
+        if (accelValues.size < 3) return 0f
         
         val x = accelValues[0]
         val y = accelValues[1]
@@ -117,30 +196,56 @@ class SensorManager(private val context: Context) {
         
         // Calculate the tilt angle from horizontal
         // Using the formula: angle = arccos(z / sqrt(x^2 + y^2 + z^2))
-        val magnitude = sqrt((x * x + y * y + z * z).toDouble())
-        val tiltAngle = if (magnitude > 0) {
-            Math.toDegrees(acos(z / magnitude)).toFloat()
-        } else {
-            0f
+        try {
+            val magnitude = sqrt((x * x + y * y + z * z).toDouble())
+            if (magnitude > 0) {
+                val angleRad = Math.acos(z / magnitude)
+                return Math.toDegrees(angleRad).toFloat()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error calculating tilt angle", e)
         }
         
-        // For speaker angle calculation, we want to know the angle between
-        // the phone's front and the speaker's front
-        // This is more complex and would require calibration
-        
-        // For now, return the tilt angle as a simplified measure
-        // In practice, you'd want to implement a more sophisticated algorithm
-        // that takes into account the phone's orientation relative to the speaker
-        
-        return tiltAngle
+        return 0f
     }
     
+    /**
+     * Checks if the device has the required sensors.
+     */
+    fun hasRequiredSensors(): Boolean {
+        return isSensorAvailable(Sensor.TYPE_ACCELEROMETER) &&
+               isSensorAvailable(Sensor.TYPE_MAGNETIC_FIELD)
+    }
+    
+    /**
+     * Checks if a specific sensor type is available.
+     */
     fun isSensorAvailable(sensorType: Int): Boolean {
         return sensorManager.getDefaultSensor(sensorType) != null
     }
     
-    fun hasRequiredSensors(): Boolean {
-        return isSensorAvailable(Sensor.TYPE_ACCELEROMETER) &&
-               isSensorAvailable(Sensor.TYPE_MAGNETIC_FIELD)
+    /**
+     * Gets the list of available sensors.
+     */
+    fun getAvailableSensors(): List<Sensor> {
+        return sensorManager.getSensorList(Sensor.TYPE_ALL)
+    }
+    
+    /**
+     * Checks if angle measurement is currently in progress.
+     */
+    fun isMeasuring(): Boolean = isMeasuring
+    
+    /**
+     * Gets the last reported angle.
+     */
+    fun getLastAngle(): Float = lastReportedAngle
+    
+    /**
+     * Resets the sensor manager.
+     */
+    fun reset() {
+        stopAngleMeasurement()
+        lastReportedAngle = 0f
     }
 }
