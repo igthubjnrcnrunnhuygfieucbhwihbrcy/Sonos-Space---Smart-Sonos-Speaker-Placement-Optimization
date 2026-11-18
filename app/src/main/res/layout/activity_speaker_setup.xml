@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    tools:context=".SpeakerSetupActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="?attr/colorSurface"
+        android:elevation="@dimen/app_bar_elevation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/speaker_setup_title"
+        app:titleTextColor="?attr/colorOnSurface" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_default">
+
+            <!-- Step Indicator -->
+            <com.google.android.material.steppers.StepperView
+                android:id="@+id/stepperView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_large" />
+
+            <!-- Step 1: Speaker Selection -->
+            <LinearLayout
+                android:id="@+id/step1Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discover_speakers"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@string/searching_speakers"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="@dimen/text_size_md" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/speakerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:maxHeight="300dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_speaker_select" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSelectSpeaker"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="@dimen/button_corner_radius" />
+            </LinearLayout>
+
+            <!-- Step 2: Phone Placement -->
+            <LinearLayout
+                android:id="@+id/step2Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/place_phone_on_speaker"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@string/align_front"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="@dimen/text_size_md" />
+
+                <!-- Visual guide -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:background="@drawable/bg_phone_placement">
+
+                    <ImageView
+                        android:id="@+id/phoneGuide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_phone_guide" />
+
+                    <TextView
+                        android:id="@+id/angleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="@dimen/margin_default"
+                        android:text="@string/measuring_angle"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/text_size_lg"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMeasureAngle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:text="@string/start_measurement"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="@dimen/button_corner_radius" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextStep2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/secondary"
+                    app:cornerRadius="@dimen/button_corner_radius" />
+            </LinearLayout>
+
+            <!-- Step 3: Position Input -->
+            <LinearLayout
+                android:id="@+id/step3Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/speaker_position"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@string/tooltip_position"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="@dimen/text_size_md" />
+
+                <!-- Height Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:hint="@string/height_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Distance from wall -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:hint="@string/distance_from_wall_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDistanceFromWall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Distance from corner -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:hint="@string/distance_from_corner_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDistanceFromCorner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Speaker angle (from step 2) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:hint="@string/speaker_angle"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAngle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Speaker name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:hint="@string/speaker_name_hint"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSpeakerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveSpeaker"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/save_speaker"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="@dimen/button_corner_radius" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

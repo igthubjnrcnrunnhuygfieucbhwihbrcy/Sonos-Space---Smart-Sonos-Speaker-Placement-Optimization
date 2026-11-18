@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Room floor -->
+    <path
+        android:fillColor="@color/sonos_gray"
+        android:pathData="M20,120 L180,120 L180,180 L20,180 Z" />
+    
+    <!-- Room walls -->
+    <path
+        android:fillColor="@color/background_light"
+        android:pathData="M20,20 L180,20 L180,120 L20,120 Z" />
+    
+    <path
+        android:fillColor="@color/background_light"
+        android:pathData="M20,20 L20,120 L180,120 L180,20 Z" />
+    
+    <!-- Speaker in room -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M100,80 L120,80 L120,100 L100,100 Z" />
+    
+    <!-- Sound waves -->
+    <path
+        android:fillColor="@color/primary"
+        android:opacity="0.3"
+        android:pathData="M100,80 C100,60 120,60 120,80 C120,100 100,100 100,80 Z" />
+    
+    <path
+        android:fillColor="@color/primary"
+        android:opacity="0.2"
+        android:pathData="M100,80 C100,40 140,40 140,80 C140,120 100,120 100,80 Z" />
+</vector>

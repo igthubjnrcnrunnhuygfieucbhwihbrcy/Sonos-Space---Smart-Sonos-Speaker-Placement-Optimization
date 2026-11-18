@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    tools:context=".RoomSetupActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="?attr/colorSurface"
+        android:elevation="@dimen/app_bar_elevation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/room_setup_title"
+        app:titleTextColor="?attr/colorOnSurface" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_default">
+
+            <!-- Room Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/room_name_hint"
+                app:boxBackgroundColor="?attr/colorSurface"
+                app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRoomName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Section: Room Dimensions -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/room_dimensions"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/room_length_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRoomLength"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="@dimen/margin_small"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/room_width_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRoomWidth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="@dimen/margin_small"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/room_height_cm"
+                    app:boxBackgroundColor="?attr/colorSurface"
+                    app:boxStrokeColor="?attr/colorOnSurfaceVariant"
+                    app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+                    app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRoomHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Section: Room Shape -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/room_shape"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgRoomShape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                app:chipSpacing="@dimen/margin_small"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRectangular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:text="@string/rectangular"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSquare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/square"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipLShaped"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/L_shaped"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipOpenPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/open_plan"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Section: Wall Material -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/wall_material"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgWallMaterial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                app:chipSpacing="@dimen/margin_small"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipConcrete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/concrete"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBrick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:text="@string/brick"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDrywall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/drywall"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipWood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/wood"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipGlass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/glass"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Section: Furniture Level -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/furniture_level"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgFurnitureLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                app:chipSpacing="@dimen/margin_small"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMinimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/minimal"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:text="@string/light"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/medium"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipHeavy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="@string/heavy"
+                    app:chipBackgroundColor="?attr/colorSurface"
+                    app:chipStrokeColor="?attr/colorOnSurfaceVariant" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Visualization -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="Room Preview"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@drawable/bg_room_preview">
+
+                <!-- 3D room visualization would go here -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_room_3d" />
+            </FrameLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveRoom"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/save_room"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="@dimen/button_corner_radius" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

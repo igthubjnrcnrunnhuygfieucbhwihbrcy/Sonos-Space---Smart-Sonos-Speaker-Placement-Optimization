@@ -1,0 +1,69 @@
+# Android
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# Android Studio
+build/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+gradlew
+gradlew.bat
+
+# Local properties
+local.properties
+
+# Build outputs
+build/
+
+# Android build outputs
+app/build/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Signing files
+*.pem
+*.pk8
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Crashlytics
+crashlytics-build.properties
+
+# Firebase
+google-services.json
+
+# Environment files
+.env
+.env.local
+
+# APK files
+*.apk
+*.aab
+
+# Test outputs
+*/test-results/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+
+# Kotlin
+*.kt.class

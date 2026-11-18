@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sonos Space</string>
+    <string name="app_description">Smart Sonos Speaker Placement & Optimization</string>
+    
+    <!-- Main Activity -->
+    <string name="welcome_title">Welcome to Sonos Space</string>
+    <string name="welcome_subtitle">Optimize your Sonos experience</string>
+    <string name="quick_setup">Quick Setup</string>
+    <string name="advanced_setup">Advanced Setup</string>
+    <string name="my_speakers">My Speakers</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Speaker Setup -->
+    <string name="speaker_setup_title">Speaker Placement</string>
+    <string name="speaker_setup_subtitle">Position your speaker perfectly</string>
+    <string name="place_phone_on_speaker">Place your phone on the speaker</string>
+    <string name="align_front">Align phone front with speaker front</string>
+    <string name="measuring_angle">Measuring angle...</string>
+    <string name="angle_calculated">Angle: %1$.1f°</string>
+    <string name="speaker_position">Speaker Position</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="distance_from_wall_cm">Distance from wall (cm)</string>
+    <string name="distance_from_corner_cm">Distance from corner (cm)</string>
+    <string name="speaker_angle">Speaker Angle</string>
+    <string name="save_speaker">Save Speaker</string>
+    <string name="speaker_name_hint">Speaker name (e.g., Living Room Left)</string>
+    
+    <!-- Room Setup -->
+    <string name="room_setup_title">Room Configuration</string>
+    <string name="room_setup_subtitle">Define your space for optimal sound</string>
+    <string name="room_dimensions">Room Dimensions</string>
+    <string name="room_length_cm">Length (cm)</string>
+    <string name="room_width_cm">Width (cm)</string>
+    <string name="room_height_cm">Height (cm)</string>
+    <string name="room_shape">Room Shape</string>
+    <string name="rectangular">Rectangular</string>
+    <string name="square">Square</string>
+    <string name="L_shaped">L-shaped</string>
+    <string name="open_plan">Open Plan</string>
+    <string name="wall_material">Wall Material</string>
+    <string name="concrete">Concrete</string>
+    <string name="brick">Brick</string>
+    <string name="drywall">Drywall</string>
+    <string name="wood">Wood</string>
+    <string name="glass">Glass</string>
+    <string name="furniture_level">Furniture Level</string>
+    <string name="minimal">Minimal</string>
+    <string name="light">Light</string>
+    <string name="medium">Medium</string>
+    <string name="heavy">Heavy</string>
+    <string name="save_room">Save Room Profile</string>
+    <string name="room_name_hint">Room name (e.g., Living Room)</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="general_settings">General</string>
+    <string name="app_version">App Version</string>
+    <string name="check_for_updates">Check for Updates</string>
+    <string name="auto_update">Auto Update</string>
+    <string name="auto_update_summary">Automatically download and install updates</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dark_mode_summary">Enable dark theme</string>
+    <string name="units">Units</string>
+    <string name="units_summary">Centimeters or Inches</string>
+    <string name="language">Language</string>
+    <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="reset_all">Reset All Settings</string>
+    <string name="reset_confirm">Are you sure you want to reset all settings?</string>
+    
+    <!-- Updates -->
+    <string name="update_available">Update Available</string>
+    <string name="update_message">Version %1$s is available. Download now?</string>
+    <string name="downloading_update">Downloading update...</string>
+    <string name="install_now">Install Now</string>
+    <string name="later">Later</string>
+    <string name="update_downloaded">Update downloaded. Restart app to install.</string>
+    
+    <!-- Sonos -->
+    <string name="discover_speakers">Discover Speakers</string>
+    <string name="searching_speakers">Searching for Sonos speakers...</string>
+    <string name="no_speakers_found">No Sonos speakers found on your network</string>
+    <string name="speaker_list_title">Available Speakers</string>
+    <string name="connect">Connect</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    
+    <!-- Optimization -->
+    <string name="optimization_title">Sound Optimization</string>
+    <string name="optimizing">Optimizing sound for your setup...</string>
+    <string name="optimization_complete">Optimization Complete!</string>
+    <string name="recommended_settings">Recommended Settings</string>
+    <string name="eq_preset">EQ Preset</string>
+    <string name="loudness">Loudness</string>
+    <string name="treble">Treble</string>
+    <string name="bass">Bass</string>
+    <string name="balance">Balance</string>
+    <string name="apply_settings">Apply to Speaker</string>
+    
+    <!-- Messages -->
+    <string name="error_title">Error</string>
+    <string name="error_network">Network connection required</string>
+    <string name="error_sensors">Sensors not available on this device</string>
+    <string name="error_permission">Permission required</string>
+    <string name="success_title">Success</string>
+    <string name="success_message">Your speaker has been configured successfully!</string>
+    
+    <!-- Buttons -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="finish">Finish</string>
+    <string name="retry">Retry</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    
+    <!-- Tooltips -->
+    <string name="tooltip_angle">Place phone on speaker with fronts aligned to measure angle</string>
+    <string name="tooltip_position">Enter precise position for accurate sound calculations</string>
+    <string name="tooltip_optimization">Optimizes EQ based on room acoustics and speaker placement</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="200">
+    
+    <!-- Speaker base -->
+    <path
+        android:fillColor="@color/sonos_gray"
+        android:pathData="M20,150 L80,150 L80,180 L20,180 Z" />
+    
+    <!-- Speaker front -->
+    <path
+        android:fillColor="@color/sonos_black"
+        android:pathData="M30,120 L70,120 L70,150 L30,150 Z" />
+    
+    <!-- Phone on speaker -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M40,100 L60,100 L60,125 L40,125 Z" />
+    
+    <!-- Phone screen -->
+    <path
+        android:fillColor="@color/sonos_white"
+        android:pathData="M45,105 L55,105 L55,120 L45,120 Z" />
+    
+    <!-- Arrow indicating alignment -->
+    <path
+        android:fillColor="@color/sonos_green"
+        android:pathData="M50,130 L50,145 L45,140 L50,135 Z" />
+    
+    <!-- Text indicator -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M50,160 L50,170" />
+</vector>

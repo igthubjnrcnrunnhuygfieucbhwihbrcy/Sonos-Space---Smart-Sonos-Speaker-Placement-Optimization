@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="preference_screen"
+    android:title="@string/settings_title">
+
+    <androidx.preference.PreferenceCategory
+        android:key="general_category"
+        android:title="@string/general_settings">
+        
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="dark_mode"
+            android:title="@string/dark_mode"
+            android:summary="@string/dark_mode_summary"
+            android:defaultValue="false" />
+        
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="auto_update"
+            android:title="@string/auto_update"
+            android:summary="@string/auto_update_summary"
+            android:defaultValue="true" />
+        
+        <androidx.preference.Preference
+            android:key="check_for_updates"
+            android:title="@string/check_for_updates"
+            android:summary="Check for app updates" />
+        
+        <androidx.preference.ListPreference
+            android:key="units"
+            android:title="@string/units"
+            android:summary="@string/units_summary"
+            android:entries="@array/units_entries"
+            android:entryValues="@array/units_values"
+            android:defaultValue="cm" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:key="about_category"
+        android:title="@string/about">
+        
+        <androidx.preference.Preference
+            android:key="app_version"
+            android:title="@string/app_version"
+            android:selectable="false" />
+        
+        <androidx.preference.Preference
+            android:key="privacy_policy"
+            android:title="@string/privacy_policy" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:key="danger_zone_category"
+        android:title="Danger Zone">
+        
+        <androidx.preference.Preference
+            android:key="reset_all"
+            android:title="@string/reset_all"
+            android:summary="@string/reset_confirm"
+            android:icon="@drawable/ic_settings" />
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
